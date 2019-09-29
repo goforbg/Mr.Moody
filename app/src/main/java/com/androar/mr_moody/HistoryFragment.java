@@ -54,9 +54,6 @@ public class HistoryFragment extends Fragment {
         };
         */
 
-        viewModel.getMood().observe(this, new MainActivityViewModel() {
-
-        });
 
         //Getting data ends
 
