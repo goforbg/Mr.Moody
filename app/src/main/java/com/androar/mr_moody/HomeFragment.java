@@ -184,8 +184,86 @@ public class HomeFragment extends Fragment  {
         ivSad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ivSadCount++;
-                Toast.makeText(getActivity(), "Aww, what's bothering you?", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Aww, Cheer up!", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("What's making you sad today? ");
+                builder.setMessage("It's easier to track thoughts if you note them down");
+                final EditText input = new EditText(getActivity());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setCancelable(false);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String mood = input.getText().toString();
+                        if (mood != null) {
+                            Bundle data = new Bundle();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
+                            String currentDateandTime = sdf.format(new Date());
+                            Mood moods = new Mood("sad",mood,currentDateandTime);
+                            data.putSerializable("moods", moods);
+                            ((MainActivity)getActivity()).saveData(data);
+                            Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Okay!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.create();
+                builder.show();
+
+            }
+        });
+
+        ivFucked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Oh, that's bad!", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("What's making you feel so angry today? ");
+                builder.setMessage("It's easier to track thoughts if you note them down");
+                final EditText input = new EditText(getActivity());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setCancelable(false);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String mood = input.getText().toString();
+                        if (mood != null) {
+                            Bundle data = new Bundle();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
+                            String currentDateandTime = sdf.format(new Date());
+                            Mood moods = new Mood("fucked",mood,currentDateandTime);
+                            data.putSerializable("moods", moods);
+                            ((MainActivity)getActivity()).saveData(data);
+                            Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Okay!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.create();
+                builder.show();
+
             }
         });
         //Button Count ends

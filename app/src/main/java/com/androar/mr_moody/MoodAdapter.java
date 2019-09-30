@@ -26,6 +26,7 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
         ImageView ivHistoryMood;
         TextView tvHistoryMood;
         TextView tvHistoryReason;
+        TextView tvHistoryTime;
 
         public ViewHolder (@NonNull View itemView){
                 super(itemView);
@@ -33,6 +34,7 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
                 ivHistoryMood = itemView.findViewById(R.id.ivHistoryMood);
                 tvHistoryMood = itemView.findViewById(R.id.tvHistoryMood);
                 tvHistoryReason = itemView.findViewById(R.id.tvHistoryReason);
+                tvHistoryTime = itemView.findViewById(R.id.tvHistoryTime);
         }
     }
     @NonNull
@@ -47,6 +49,7 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
         holder.itemView.setTag(moods.get(position));
         holder.tvHistoryMood.setText(moods.get(position).getMood());
         holder.tvHistoryReason.setText(moods.get(position).getReason());
+        holder.tvHistoryTime.setText(moods.get(position).getDate());
         if (moods.get(position).getMood().equals("happy")) {
             holder.ivHistoryMood.setImageResource(R.drawable.ic_happy);
         }
