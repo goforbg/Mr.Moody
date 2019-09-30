@@ -43,7 +43,7 @@ public class HistoryFragment extends Fragment {
     RecyclerView.Adapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
     String smood, sreason, stime;
-    ArrayList<Mood> moods;
+    ArrayList<Mood> moodslist;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -76,7 +76,7 @@ public class HistoryFragment extends Fragment {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+                Log.d(TAG, "Mood Value is: " + value);
                 smood = value;
             }
 
@@ -121,7 +121,6 @@ public class HistoryFragment extends Fragment {
             }
         });
 
-        Mood moodx = new Mood (smood, stime, sreason);
 
         //Firebase Ends
 
@@ -132,10 +131,10 @@ public class HistoryFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        moods = new ArrayList<Mood>();
-        moods.add(moodx);
+        moodslist = new ArrayList<Mood>();
+        moodslist.add(new Mood (smood, stime, sreason));
 
-        myAdapter = new MoodAdapter(getActivity(), moods);
+        myAdapter = new MoodAdapter(getActivity(), moodslist);
         recyclerView.setAdapter(myAdapter);
 
 

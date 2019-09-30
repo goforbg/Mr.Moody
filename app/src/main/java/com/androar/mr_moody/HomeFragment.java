@@ -166,8 +166,8 @@ public class HomeFragment extends Fragment  {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
                             Mood moods = new Mood("smile",mood,currentDateandTime);
-                            data.putSerializable("moods", moods);
-                            ((MainActivity)getActivity()).saveData(data);
+                            //data.putSerializable("moods", moods);
+                            //((MainActivity)getActivity()).saveData(data);
                             Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -206,10 +206,10 @@ public class HomeFragment extends Fragment  {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String mood = input.getText().toString();
                         if (mood != null) {
-                            Bundle data = new Bundle();
+                            //Bundle data = new Bundle();
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            //Mood moods = new Mood("sad",mood,currentDateandTime);
+                            Mood moods = new Mood("sad",mood,currentDateandTime);
                             //data.putSerializable("moods", moods);
                             //((MainActivity)getActivity()).saveData(data);
 
