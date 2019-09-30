@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     //Declaration for Bottom Navigation and Fragments end
 
 
-    private Bundle  dataBetweenFragment; //Global variable
+    private Bundle dataBetweenFragment; //Global variable
 
     //Declarations for First Run and Welcome starts
     TextView tvWelcome;

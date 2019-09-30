@@ -1,6 +1,8 @@
 package com.androar.mr_moody;
 
-public class Mood {
+import java.io.Serializable;
+
+public class Mood implements Serializable {
     private String mood;
     private String reason;
     private String date;

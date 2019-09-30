@@ -113,19 +113,14 @@ public class HomeFragment extends Fragment  {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String mood = input.getText().toString();
-                        Log.i("String mood is", mood);
                         if (mood != null) {
                             Bundle data = new Bundle();
-                            data.putString("data", mood);
-                            ((MainActivity)getActivity()).saveData(data);
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            data.putString("date", currentDateandTime);
+                            Mood moods = new Mood("happy",mood,currentDateandTime);
+                            data.putSerializable("moods", moods);
                             ((MainActivity)getActivity()).saveData(data);
-                            data.putString("moodx", "happy");
-                            ((MainActivity)getActivity()).saveData(data);
-
-                            Toast.makeText(getActivity(), "Set!" + mood +"!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
                         }
 
                         else
@@ -145,17 +140,43 @@ public class HomeFragment extends Fragment  {
         ivSmile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ivSmileCount++;
-                Toast.makeText(getActivity(), "Keep smilin' darling! ", Toast.LENGTH_SHORT).show();
-            }
-        });
+                Toast.makeText(getActivity(), "Glad that you're smiling!", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("What's making you smile today? ");
+                builder.setMessage("It's easier to track thoughts if you note them down");
+                final EditText input = new EditText(getActivity());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setCancelable(false);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String mood = input.getText().toString();
+                        if (mood != null) {
+                            Bundle data = new Bundle();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
+                            String currentDateandTime = sdf.format(new Date());
+                            Mood moods = new Mood("smile",mood,currentDateandTime);
+                            data.putSerializable("moods", moods);
+                            ((MainActivity)getActivity()).saveData(data);
+                            Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
+                        }
 
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Okay!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.create();
+                builder.show();
 
-        ivFucked.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ivFuckedCount++;
-                Toast.makeText(getActivity(), "It's going to be okay. Take a deep breath.", Toast.LENGTH_SHORT).show();
             }
         });
 

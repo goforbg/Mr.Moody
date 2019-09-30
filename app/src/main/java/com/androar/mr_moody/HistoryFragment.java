@@ -51,18 +51,17 @@ public class HistoryFragment extends Fragment {
 
 
         Bundle data = ((MainActivity)getActivity()).getSavedData();
-        reason = data.getString("data");
-        time = data.getString("date");
-        mood = data.getString("moodx");
+        Mood moodx =  (Mood)data.getSerializable("moods");
+
 
         recyclerView = rootview.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         moods = new ArrayList<Mood>();
-        moods.add(new Mood(mood, reason, time));
+        moods.add(new Mood(moodx.getMood(), moodx.getReason(), moodx.getDate()));
 
         myAdapter = new MoodAdapter(getActivity(), moods);
         recyclerView.setAdapter(myAdapter);
