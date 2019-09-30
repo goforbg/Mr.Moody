@@ -50,7 +50,8 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
         holder.tvHistoryMood.setText(moods.get(position).getMood());
         holder.tvHistoryReason.setText(moods.get(position).getReason());
         holder.tvHistoryTime.setText(moods.get(position).getDate());
-        if (moods.get(position).getMood().equals("happy")) {
+
+/*        if (moods.get(position).getMood().equals("happy")) {
             holder.ivHistoryMood.setImageResource(R.drawable.ic_happy);
         }
 
@@ -65,6 +66,8 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
         if (moods.get(position).getMood().equals("fucked")) {
             holder.ivHistoryMood.setImageResource(R.drawable.ic_fucked);
         }
+
+ */
     }
 
     @Override

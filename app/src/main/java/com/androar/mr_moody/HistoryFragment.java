@@ -20,10 +20,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -34,7 +42,7 @@ public class HistoryFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
-    String mood, reason, time;
+    String smood, sreason, stime;
     ArrayList<Mood> moods;
 
     public HistoryFragment() {
@@ -50,18 +58,82 @@ public class HistoryFragment extends Fragment {
         View rootview =inflater.inflate(R.layout.fragment_history, container, false);
 
 
-        Bundle data = ((MainActivity)getActivity()).getSavedData();
-        Mood moodx =  (Mood)data.getSerializable("moods");
+        //Bundle data = ((MainActivity)getActivity()).getSavedData();
+        //Mood moodx =  (Mood)data.getSerializable("moods");
+
+
+        //Firebase Starts
+        // Read from the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference user_mood = database.getReference("mood");
+        DatabaseReference user_time = database.getReference("time");
+        DatabaseReference user_reason = database.getReference("reason");
+
+
+        user_mood.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+                smood = value;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        user_reason.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Reason is: " + value);
+                sreason = value;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        user_time.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Time is: " + value);
+                stime = value;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        Mood moodx = new Mood (smood, stime, sreason);
+
+        //Firebase Ends
 
 
         recyclerView = rootview.findViewById(R.id.recyclerView);
-        //recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         moods = new ArrayList<Mood>();
-        moods.add(new Mood(moodx.getMood(), moodx.getReason(), moodx.getDate()));
+        moods.add(moodx);
 
         myAdapter = new MoodAdapter(getActivity(), moods);
         recyclerView.setAdapter(myAdapter);

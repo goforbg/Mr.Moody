@@ -30,6 +30,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import static android.content.Context.MODE_PRIVATE;
 import static com.androar.mr_moody.MainActivity.mypreference;
 
@@ -206,10 +209,22 @@ public class HomeFragment extends Fragment  {
                             Bundle data = new Bundle();
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            Mood moods = new Mood("sad",mood,currentDateandTime);
-                            data.putSerializable("moods", moods);
-                            ((MainActivity)getActivity()).saveData(data);
-                            Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
+                            //Mood moods = new Mood("sad",mood,currentDateandTime);
+                            //data.putSerializable("moods", moods);
+                            //((MainActivity)getActivity()).saveData(data);
+
+                            // Writing to DataBase
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference user_mood = database.getReference("mood");
+                            user_mood.setValue("happy");
+
+                            DatabaseReference user_time = database.getReference("time");
+                            user_time.setValue(currentDateandTime);
+
+                            DatabaseReference user_reason = database.getReference("reason");
+                            user_reason.setValue(mood);
+
+                            Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }
 
                         else
