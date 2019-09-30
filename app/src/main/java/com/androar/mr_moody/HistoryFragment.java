@@ -76,7 +76,7 @@ public class HistoryFragment extends Fragment {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Mood Value is: " + value);
+                Log.d(TAG, "Mood Value is: " + value); ////It catches the correct value sent by HomeFrag
                 smood = value;
             }
 
@@ -93,7 +93,7 @@ public class HistoryFragment extends Fragment {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Reason is: " + value);
+                Log.d(TAG, "Reason is: " + value); //It catches the correct value sent by HomeFrag
                 sreason = value;
             }
 
@@ -110,7 +110,7 @@ public class HistoryFragment extends Fragment {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Time is: " + value);
+                Log.d(TAG, "Time is: " + value); //It catches the correct value sent by HomeFrag
                 stime = value;
             }
 
@@ -132,9 +132,9 @@ public class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         moodslist = new ArrayList<Mood>();
-        moodslist.add(new Mood (smood, stime, sreason));
+        moodslist.add(new Mood (smood, stime, sreason)); //No idea why the object isn't created at this instance
 
-        myAdapter = new MoodAdapter(getActivity(), moodslist);
+        myAdapter = new MoodAdapter(getActivity(), moodslist); //Still not creating objects. Objects are null!
         recyclerView.setAdapter(myAdapter);
 
 
