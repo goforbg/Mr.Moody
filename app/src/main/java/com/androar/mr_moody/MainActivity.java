@@ -38,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
     //Declaration for Bottom Navigation and Fragments end
 
 
-    //Declaration for livedata
-    MainActivityViewModel mMainActivityViewModel;
-
-
     //Declarations for First Run and Welcome starts
     TextView tvWelcome;
     String user;
@@ -172,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-
-
 }
+
+
+
 

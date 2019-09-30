@@ -9,14 +9,15 @@
     tools:context=".HistoryFragment">
 
     <TextView
-        android:id="@+id/tvMood"
+        android:id="@+id/tvReason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/tvReason"
+        android:id="@+id/tvMood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
+
 </LinearLayout>

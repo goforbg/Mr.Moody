@@ -29,41 +29,30 @@ public class HistoryFragment extends Fragment {
 
     TextView tvReason, tvMood;
 
-    private MainActivityViewModel viewModel;
-
 
     public HistoryFragment() {
         // Required empty public constructor
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         tvReason = container.findViewById(R.id.tvReason);
         tvMood = container.findViewById(R.id.tvMood);
 
 
-        //Getting data starts
-        viewModel = ViewModelProviders.of(this.getActivity()).get(MainActivityViewModel.class);
-        /*final Observer<String> nameObserver = new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable final String newName) {
-                Toast.makeText(getActivity(), newName, Toast.LENGTH_SHORT).show();
-            }
-        };
-        */
-
-        //Checkforthis
-
-
-        //Getting data ends
-
-
-
-
+        Bundle bundle = getArguments();
+        String moodx = bundle.getString("mood","ss");
+        tvMood.setText(moodx);
+        
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_history, container, false);
     }
+
+
+
+
 
 }

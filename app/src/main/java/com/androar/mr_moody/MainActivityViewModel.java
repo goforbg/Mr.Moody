@@ -1,28 +1,34 @@
 package com.androar.mr_moody;
 
-import androidx.lifecycle.LiveData;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainActivityViewModel extends ViewModel {
 
-    public MutableLiveData<String> mood =  new MutableLiveData<String>();;
+    public MutableLiveData<String> xmood =  new MutableLiveData<String>();;
     public MutableLiveData<String> reason =  new MutableLiveData<String>();
+
 
     public void selectMood (String moodx)
     {
-        mood.setValue(moodx);
+        xmood.setValue(moodx);
     }
 
     public void selectReason (String reasonx)
     {
         reason.setValue(reasonx);
     }
-    public LiveData<String> getMood() {
-        return  mood;
+    public MutableLiveData<String> getMood() {
+        if (xmood == null)
+        {
+            xmood = new MutableLiveData<String>();
+        }
+
+        return  xmood;
     }
 
-    public LiveData<String> getReason() {
+    public MutableLiveData<String> getReason() {
         return reason;
     }
 }

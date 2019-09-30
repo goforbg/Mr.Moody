@@ -3,14 +3,18 @@ package com.androar.mr_moody;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.text.InputType;
@@ -30,16 +34,16 @@ import static com.androar.mr_moody.MainActivity.mypreference;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  {
 
     TextView tvWelcome;
 
-    MainActivityViewModel viewModel;
+    //Data End
+
 
     String user;
     SharedPreferences sharedPreferences;
     public static final String mypreference = "com.androar.mr_moody";
-
 
 
     //Declarations for Imageviews start
@@ -58,7 +62,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this.getActivity()).get(MainActivityViewModel.class);
 
 
         View myview = inflater.inflate(R.layout.fragment_home, container, false);
@@ -86,16 +89,26 @@ public class HomeFragment extends Fragment {
                 final EditText input = new EditText(getActivity());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
-                final String mood = input.getText().toString();
                 builder.setCancelable(false);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
                 builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        String mood = input.getText().toString();
                         Log.i("String mood is", mood);
                         if (mood != null) {
-                            viewModel.selectMood(mood);
-                            //model.setsValue(mood);
-                            Toast.makeText(getActivity(), "Set!", Toast.LENGTH_SHORT).show();
+                            HistoryFragment fragment = new HistoryFragment();
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("mood", mood);
+                            fragment.setArguments(bundle);
+                            transaction.replace(R.id.llContainer, fragment  );
+                            Toast.makeText(getActivity(), "Set!" + mood +"!", Toast.LENGTH_SHORT).show();
                         }
 
                         else
@@ -106,6 +119,8 @@ public class HomeFragment extends Fragment {
                 });
                 builder.create();
                 builder.show();
+
+
             }
         });
 
@@ -137,11 +152,9 @@ public class HomeFragment extends Fragment {
         });
         //Button Count ends
 
-
-
-
         return myview;
     }
+
 
 
 
