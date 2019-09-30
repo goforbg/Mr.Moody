@@ -38,7 +38,17 @@ public class HomeFragment extends Fragment  {
 
     TextView tvWelcome;
 
+    //Data starrt
+    private MainActivity activity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        this.activity = (MainActivity) activity;
+        super.onAttach(activity);
+    }
+
     //Data End
+
 
 
     String user;
@@ -102,12 +112,9 @@ public class HomeFragment extends Fragment  {
                         String mood = input.getText().toString();
                         Log.i("String mood is", mood);
                         if (mood != null) {
-                            HistoryFragment fragment = new HistoryFragment();
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("mood", mood);
-                            fragment.setArguments(bundle);
-                            transaction.replace(R.id.llContainer, fragment  );
+                            Bundle data = new Bundle();
+                            data.putString("data", mood);
+                            ((MainActivity)getActivity()).saveData(data);
                             Toast.makeText(getActivity(), "Set!" + mood +"!", Toast.LENGTH_SHORT).show();
                         }
 

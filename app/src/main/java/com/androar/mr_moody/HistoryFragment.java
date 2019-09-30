@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 
@@ -39,16 +41,24 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View rootview =inflater.inflate(R.layout.fragment_history, container, false);
         tvReason = container.findViewById(R.id.tvReason);
-        tvMood = container.findViewById(R.id.tvMood);
+        tvMood = (TextView) rootview.findViewById(R.id.tvMood);
 
 
-        Bundle bundle = getArguments();
-        String moodx = bundle.getString("mood","ss");
-        tvMood.setText(moodx);
-        
+        Bundle data = ((MainActivity)getActivity()).getSavedData();
+        String dataString = data.getString("data");
+        if (dataString != null) {
+           tvMood.setText(dataString);
+        }
+        else
+            {
+             tvMood.setText("nukk");
+            }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        return rootview;
     }
 
 

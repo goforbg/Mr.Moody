@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     //Declaration for Bottom Navigation and Fragments end
 
 
+    private Bundle  dataBetweenFragment; //Global variable
+
     //Declarations for First Run and Welcome starts
     TextView tvWelcome;
     String user;
@@ -167,6 +169,15 @@ public class MainActivity extends AppCompatActivity {
         prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
         return result;
     }
+
+    public void saveData (Bundle data) {
+        this.dataBetweenFragment = data;
+    }
+
+    public Bundle getSavedData () {
+        return this.dataBetweenFragment;
+    }
+
 
 }
 
