@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,9 +31,11 @@ import java.util.List;
  */
 public class HistoryFragment extends Fragment {
 
-
-    TextView tvReason, tvMood;
-
+    RecyclerView recyclerView;
+    RecyclerView.Adapter myAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    String mood, reason, time;
+    ArrayList<Mood> moods;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -43,21 +48,26 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootview =inflater.inflate(R.layout.fragment_history, container, false);
-        tvReason = container.findViewById(R.id.tvReason);
-        tvMood = (TextView) rootview.findViewById(R.id.tvMood);
 
 
         Bundle data = ((MainActivity)getActivity()).getSavedData();
-        String dataString = data.getString("data");
-        if (dataString != null) {
-           tvMood.setText(dataString);
-        }
-        else
-            {
-             tvMood.setText("nukk");
-            }
+        reason = data.getString("data");
+        time = data.getString("date");
+        mood = data.getString("moodx");
 
-        // Inflate the layout for this fragment
+        recyclerView = rootview.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        moods = new ArrayList<Mood>();
+        moods.add(new Mood(mood, reason, time));
+
+        myAdapter = new MoodAdapter(getActivity(), moods);
+        recyclerView.setAdapter(myAdapter);
+
+
         return rootview;
     }
 
