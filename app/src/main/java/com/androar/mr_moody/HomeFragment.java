@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment  {
 
 
 
+
         View myview = inflater.inflate(R.layout.fragment_home, container, false);
         tvWelcome = (TextView) myview.findViewById(R.id.tvWelcome);
         sharedPreferences = this.getActivity().getSharedPreferences(mypreference, MODE_PRIVATE);

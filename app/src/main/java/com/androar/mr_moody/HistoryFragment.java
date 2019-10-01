@@ -63,7 +63,6 @@ public class HistoryFragment extends Fragment {
 
 
         //Firebase Starts
-
         reff = FirebaseDatabase.getInstance().getReference().child("moods");
 
 
