@@ -67,7 +67,7 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
             holder.ivHistoryMood.setImageResource(R.drawable.ic_fucked);
         }
 
- 
+
     }
 
     @Override
