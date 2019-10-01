@@ -45,6 +45,8 @@ public class HistoryFragment extends Fragment {
     String smood, sreason, stime;
     ArrayList<Mood> moodslist;
 
+    DatabaseReference reff;
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -58,26 +60,25 @@ public class HistoryFragment extends Fragment {
         View rootview =inflater.inflate(R.layout.fragment_history, container, false);
 
 
-        //Bundle data = ((MainActivity)getActivity()).getSavedData();
-        //Mood moodx =  (Mood)data.getSerializable("moods");
 
 
         //Firebase Starts
-        // Read from the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference user_mood = database.getReference("mood");
-        DatabaseReference user_time = database.getReference("time");
-        DatabaseReference user_reason = database.getReference("reason");
+
+        reff = FirebaseDatabase.getInstance().getReference().child("moods");
 
 
-        user_mood.addValueEventListener(new ValueEventListener() {
+        moodslist = new ArrayList<Mood>();
+        reff.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Mood Value is: " + value); ////It catches the correct value sent by HomeFrag
-                smood = value;
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Mood moods = dataSnapshot1.getValue(Mood.class);
+                    moodslist.add(moods);
+                }
+
+                myAdapter = new MoodAdapter(getActivity(), moodslist);
+                recyclerView.setAdapter(myAdapter);
             }
 
             @Override
@@ -87,39 +88,8 @@ public class HistoryFragment extends Fragment {
             }
         });
 
-        user_reason.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Reason is: " + value); //It catches the correct value sent by HomeFrag
-                sreason = value;
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
 
-        user_time.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Time is: " + value); //It catches the correct value sent by HomeFrag
-                stime = value;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
 
 
         //Firebase Ends
@@ -131,11 +101,6 @@ public class HistoryFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        moodslist = new ArrayList<Mood>();
-        moodslist.add(new Mood (smood, stime, sreason)); //No idea why the object isn't created at this instance
-
-        myAdapter = new MoodAdapter(getActivity(), moodslist); //Still not creating objects. Objects are null!
-        recyclerView.setAdapter(myAdapter);
 
 
         return rootview;

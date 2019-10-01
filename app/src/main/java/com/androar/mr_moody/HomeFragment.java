@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment  {
         super.onAttach(activity);
     }
 
+    DatabaseReference reff;
     //Data End
 
 
@@ -119,19 +120,9 @@ public class HomeFragment extends Fragment  {
                         if (mood != null) { SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
                             Mood moods = new Mood("happy",mood,currentDateandTime);
-                            //data.putSerializable("moods", moods);
-                            //((MainActivity)getActivity()).saveData(data);
-
                             // Writing to DataBase
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference user_mood = database.getReference("mood");
-                            user_mood.setValue("happy");
-
-                            DatabaseReference user_time = database.getReference("time");
-                            user_time.setValue(currentDateandTime);
-
-                            DatabaseReference user_reason = database.getReference("reason");
-                            user_reason.setValue(mood);
+                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
+                            reff.push().setValue(moods);
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }
@@ -175,19 +166,10 @@ public class HomeFragment extends Fragment  {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
                             Mood moods = new Mood("smile",mood,currentDateandTime);
-                            //data.putSerializable("moods", moods);
-                            //((MainActivity)getActivity()).saveData(data);
 
                             // Writing to DataBase
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference user_mood = database.getReference("mood");
-                            user_mood.setValue("smile");
-
-                            DatabaseReference user_time = database.getReference("time");
-                            user_time.setValue(currentDateandTime);
-
-                            DatabaseReference user_reason = database.getReference("reason");
-                            user_reason.setValue(mood);
+                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
+                            reff.push().setValue(moods);
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }
@@ -231,19 +213,11 @@ public class HomeFragment extends Fragment  {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
                             Mood moods = new Mood("sad",mood,currentDateandTime);
-                            //data.putSerializable("moods", moods);
-                            //((MainActivity)getActivity()).saveData(data);
 
                             // Writing to DataBase
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference user_mood = database.getReference("mood");
-                            user_mood.setValue("sad");
 
-                            DatabaseReference user_time = database.getReference("time");
-                            user_time.setValue(currentDateandTime);
-
-                            DatabaseReference user_reason = database.getReference("reason");
-                            user_reason.setValue(mood);
+                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
+                            reff.push().setValue(moods);
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }
@@ -285,19 +259,10 @@ public class HomeFragment extends Fragment  {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
                             Mood moods = new Mood("fucked",mood,currentDateandTime);
-                            //data.putSerializable("moods", moods);
-                            //((MainActivity)getActivity()).saveData(data);
 
                             // Writing to DataBase
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference user_mood = database.getReference("mood");
-                            user_mood.setValue("fucked");
-
-                            DatabaseReference user_time = database.getReference("time");
-                            user_time.setValue(currentDateandTime);
-
-                            DatabaseReference user_reason = database.getReference("reason");
-                            user_reason.setValue(mood);
+                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
+                            reff.push().setValue(moods);
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }

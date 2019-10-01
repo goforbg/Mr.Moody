@@ -7,6 +7,10 @@ public class Mood implements Serializable {
     private String reason;
     private String date;
 
+    public Mood() {
+
+    }
+
     public Mood(String mood, String reason, String date) {
         this.mood = mood;
         this.reason = reason;
