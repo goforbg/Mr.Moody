@@ -152,12 +152,13 @@ public class HomeFragment extends Fragment  {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String mood = input.getText().toString();
-                        if (mood != null) { SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
+                        if (mood != null) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            Mood moods = new Mood("happy",mood,currentDateandTime);
-                            // Writing to DataBase
-                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
-                            reff.push().setValue(moods);
+                            MoodsDB moodsDB = new MoodsDB(getActivity());
+                            moodsDB.open();
+                            moodsDB.createEntry("happy",mood, currentDateandTime);
+                            moodsDB.close();
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }
@@ -200,11 +201,10 @@ public class HomeFragment extends Fragment  {
                         if (mood != null) {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            Mood moods = new Mood("smile",mood,currentDateandTime);
-
-                            // Writing to DataBase
-                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
-                            reff.push().setValue(moods);
+                            MoodsDB moodsDB = new MoodsDB(getActivity());
+                            moodsDB.open();
+                            moodsDB.createEntry("smile", mood, currentDateandTime);
+                            moodsDB.close();
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }
@@ -244,17 +244,14 @@ public class HomeFragment extends Fragment  {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String mood = input.getText().toString();
                         if (mood != null) {
-                            //Bundle data = new Bundle();
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            Mood moods = new Mood("sad",mood,currentDateandTime);
+                            MoodsDB moodsDB = new MoodsDB(getActivity());
+                            moodsDB.open();
+                            moodsDB.createEntry("sad",mood, currentDateandTime);
+                            moodsDB.close();
 
-                            // Writing to DataBase
-
-                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
-                            reff.push().setValue(moods);
-
-                            Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "saved!", Toast.LENGTH_SHORT).show();
                         }
 
                         else
@@ -293,11 +290,10 @@ public class HomeFragment extends Fragment  {
                         if (mood != null) {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            Mood moods = new Mood("fucked",mood,currentDateandTime);
-
-                            // Writing to DataBase
-                            reff = FirebaseDatabase.getInstance().getReference().child("moods");
-                            reff.push().setValue(moods);
+                            MoodsDB moodsDB = new MoodsDB(getActivity());
+                            moodsDB.open();
+                            moodsDB.createEntry("fucked",mood, currentDateandTime);
+                            moodsDB.close();
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
                         }

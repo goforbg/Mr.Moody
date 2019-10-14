@@ -60,41 +60,21 @@ public class HistoryFragment extends Fragment {
         View rootview =inflater.inflate(R.layout.fragment_history, container, false);
 
 
-
-
-        //Firebase Starts
-        reff = FirebaseDatabase.getInstance().getReference().child("moods");
-
-
         moodslist = new ArrayList<Mood>();
-        reff.addValueEventListener(new ValueEventListener() {
+        MoodsDB db = new MoodsDB(getActivity());
+        db.open();
+        if (db!=null) {
+            smood = db.getDBMood().toString();
+            sreason = db.getDBReason();
+            stime = db.getDBTime();
+        }
+        db.close();
+        Mood moods = new Mood(smood,sreason,stime);
+        moodslist.add(moods);
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Mood moods = dataSnapshot1.getValue(Mood.class);
-                    moodslist.add(moods);
-                }
-
-                myAdapter = new MoodAdapter(getActivity(), moodslist);
-                recyclerView.setAdapter(myAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-
-
-
-
-        //Firebase Ends
-
-
+        myAdapter = new MoodAdapter(getActivity(), moodslist);
         recyclerView = rootview.findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(myAdapter);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getActivity());
