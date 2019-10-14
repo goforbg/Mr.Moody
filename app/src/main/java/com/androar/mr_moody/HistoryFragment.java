@@ -69,6 +69,9 @@ public class HistoryFragment extends Fragment {
             stime = db.getDBTime();
         }
         db.close();
+        Log.d("mood", smood);
+        Log.d("reason", sreason);
+        Log.d("time", stime);
         Mood moods = new Mood(smood,sreason,stime);
         moodslist.add(moods);
 

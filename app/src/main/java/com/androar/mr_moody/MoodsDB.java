@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class MoodsDB {
 
@@ -15,7 +16,7 @@ public class MoodsDB {
     public static final String KEY_REASON = "_reason";
     public static final String KEY_TIME = "_time";
 
-    public static final String DATABASE_NAME = "MoodsDB";
+    public static final String DATABASE_NAME = "MoodsDB.db";
     public static final String DATABASE_TABLE = "MoodsTable";
     private int DATABASE_VERSION = 1;
 
@@ -45,15 +46,18 @@ public class MoodsDB {
             //CREATE TABLE MoodsTable (_id INTEGER PRIMARY KEY AUTOINCREMENT, KEY_MOOD TEXT NOT NULL, KEY_TIME TEXT NOT NULL,
             //        KEY_REASON TEXT NOT NULL);
 
-            String sqlCode = "CREATE TABLE " + DATABASE_TABLE + "(" + KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT" + ","
-                    + KEY_MOOD + " TEXT NOT NULL, "+ KEY_TIME + " TEXT NOT NULL, " + KEY_REASON + " TEXT NOT NULL); ";
+            String sqlCode = "CREATE TABLE IF NOT EXISTS " + DATABASE_TABLE + " (" +
+                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + KEY_MOOD + " TEXT NOT NULL,"
+                    + KEY_TIME + " TEXT NOT NULL,"
+                    + KEY_REASON + " TEXT NOT NULL " + ") ";
 
             sqLiteDatabase.execSQL(sqlCode);
+            Log.i("time", "created db aravind");
 
         }
 
     }
-
 
     public MoodsDB open () throws SQLException {
         ourhelper = new DBHelper (ourcontext);
