@@ -45,7 +45,6 @@ public class HistoryFragment extends Fragment {
     String smood, sreason, stime;
     ArrayList<Mood> moodslist;
 
-    DatabaseReference reff;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -60,25 +59,25 @@ public class HistoryFragment extends Fragment {
         View rootview =inflater.inflate(R.layout.fragment_history, container, false);
 
 
-        moodslist = new ArrayList<Mood>();
         MoodsDB db = new MoodsDB(getActivity());
         db.open();
-        if (db!=null) {
-            smood = db.getDBMood().toString();
+            smood = db.getDBMood();
             sreason = db.getDBReason();
             stime = db.getDBTime();
-        }
+            Log.d("history received mood", smood);
+            Log.d("history recevied reason", sreason);
+            Log.d("history received time", stime);
         db.close();
-        Log.d("mood", smood);
-        Log.d("reason", sreason);
-        Log.d("time", stime);
-        Mood moods = new Mood(smood,sreason,stime);
-        moodslist.add(moods);
+
+        moodslist = new ArrayList<Mood>();
+        moodslist.add(new Mood(smood,sreason,stime));
+
+
 
         myAdapter = new MoodAdapter(getActivity(), moodslist);
+        myAdapter.notifyDataSetChanged();
         recyclerView = rootview.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(myAdapter);
-        recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

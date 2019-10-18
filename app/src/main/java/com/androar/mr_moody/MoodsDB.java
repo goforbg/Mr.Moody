@@ -30,7 +30,7 @@ public class MoodsDB {
 
     private class DBHelper extends SQLiteOpenHelper {
 
-        private DBHelper (Context context) {
+        public DBHelper (Context context) {
             super (context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -53,13 +53,13 @@ public class MoodsDB {
                     + KEY_REASON + " TEXT NOT NULL " + ") ";
 
             sqLiteDatabase.execSQL(sqlCode);
-            Log.i("time", "created db aravind");
 
         }
 
     }
 
     public MoodsDB open () throws SQLException {
+        Log.d("DBA", "DB created");
         ourhelper = new DBHelper (ourcontext);
         ourDatabase = ourhelper.getWritableDatabase();
 
@@ -71,62 +71,53 @@ public class MoodsDB {
     }
 
 
-    public long createEntry (String mood, String reason, String time)
+
+    public long createEntry (String smood, String sreason, String stime)
     {
         ContentValues cv = new ContentValues();
-        cv.put (KEY_MOOD, mood);
-        cv.put (KEY_REASON, reason);
-        cv.put (KEY_TIME, time);
+        cv.put (KEY_MOOD, smood);
+        cv.put (KEY_REASON, sreason);
+        cv.put (KEY_TIME, stime);
+        new Mood(smood, sreason, stime);
         return ourDatabase.insert (DATABASE_TABLE, null, cv);
     }
 
     public String getDBMood()
     {
-        Cursor c = ourDatabase.rawQuery(" SELECT *  FROM " + DATABASE_TABLE , null);
+        String [] columns = new String [] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
+        Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,null,null);
         int iMood = c.getColumnIndex(KEY_MOOD);
         String result = "";
         for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-            result = result + c.getString(iMood);
+          result = c.getString(iMood);
         }
+        c.close();
         return result;
     }
 
     public String getDBReason()
     {
-        /*String [] columns = new String[] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
-        Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null,
-                null, null,null );
-        String result ="";
-        int iRowID = c.getColumnIndex(KEY_ROWID);
-        int iMood = c.getColumnIndex(KEY_MOOD);
-        int iReason = c.getColumnIndex(KEY_REASON);
-        int iTime = c.getColumnIndex(KEY_TIME);
-
-        for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-            result = result + c.getString(iReason);
-        }
-
-        c.close();
-
-        return result; */
-
-        Cursor c = ourDatabase.rawQuery(" SELECT *  FROM " + DATABASE_TABLE , null);
+        String [] columns = new String [] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
+        Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,null,null);
         int iReason = c.getColumnIndex(KEY_REASON);
         String result = "";
         for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-            result = result + c.getString(iReason);
+            result = c.getString(iReason);
         }
+        c.close();
         return result;
     }
 
     public String getDBTime()
     {
-        Cursor c = ourDatabase.rawQuery(" SELECT *  FROM " + DATABASE_TABLE , null);
+        String [] columns = new String [] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
+        Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,null,null);
         int iTime = c.getColumnIndex(KEY_TIME);
         String result = "";
         for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-            result = result + c.getString(iTime);
+            result = c.getString(iTime);
         }
+        c.close();
         return result;
     }
 

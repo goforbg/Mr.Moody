@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -81,6 +82,8 @@ public class HomeFragment extends Fragment  {
     //Declarations for Imageviews start
     int ivHappyCount, ivSmileCount, ivSadCount, ivFuckedCount;
     ImageView ivHappy, ivSmile, ivSad, ivFucked;
+    ArrayList<Mood> moodslist;
+
     //Declarations for Imageviews end
 
 
@@ -157,7 +160,7 @@ public class HomeFragment extends Fragment  {
                             String currentDateandTime = sdf.format(new Date());
                             MoodsDB moodsDB = new MoodsDB(getActivity());
                             moodsDB.open();
-                            moodsDB.createEntry("happy",mood, currentDateandTime);
+                            moodsDB.createEntry("happy", mood, currentDateandTime);
                             moodsDB.close();
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
@@ -248,7 +251,7 @@ public class HomeFragment extends Fragment  {
                             String currentDateandTime = sdf.format(new Date());
                             MoodsDB moodsDB = new MoodsDB(getActivity());
                             moodsDB.open();
-                            moodsDB.createEntry("sad",mood, currentDateandTime);
+                            moodsDB.createEntry("sad", mood, currentDateandTime);
                             moodsDB.close();
 
                             Toast.makeText(getActivity(), "saved!", Toast.LENGTH_SHORT).show();
@@ -292,7 +295,9 @@ public class HomeFragment extends Fragment  {
                             String currentDateandTime = sdf.format(new Date());
                             MoodsDB moodsDB = new MoodsDB(getActivity());
                             moodsDB.open();
-                            moodsDB.createEntry("fucked",mood, currentDateandTime);
+                            moodsDB.createEntry("fucked", mood, currentDateandTime);
+                            moodslist = new ArrayList<Mood>();
+                            moodslist.add(new Mood("fucked",mood,currentDateandTime));
                             moodsDB.close();
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
