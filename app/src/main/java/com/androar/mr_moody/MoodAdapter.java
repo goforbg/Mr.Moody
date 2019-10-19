@@ -18,7 +18,8 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
 
     public MoodAdapter(Context context, ArrayList<Mood> list)
     {
-     moods = list;
+        moods=list;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends  RecyclerView.ViewHolder {

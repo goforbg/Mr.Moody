@@ -52,31 +52,29 @@ public class HistoryFragment extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootview =inflater.inflate(R.layout.fragment_history, container, false);
 
+        moodslist = new ArrayList<Mood>();
 
         MoodsDB db = new MoodsDB(getActivity());
         db.open();
-            smood = db.getDBMood();
-            sreason = db.getDBReason();
-            stime = db.getDBTime();
-            Log.d("history received mood", smood);
-            Log.d("history recevied reason", sreason);
-            Log.d("history received time", stime);
-        db.close();
-
-        moodslist = new ArrayList<Mood>();
-        moodslist.add(new Mood(smood,sreason,stime));
-
-
+        moodslist = db.getList();
 
         myAdapter = new MoodAdapter(getActivity(), moodslist);
         myAdapter.notifyDataSetChanged();
+
+        db.close();
+
+
+
+
         recyclerView = rootview.findViewById(R.id.recyclerView);
+
         recyclerView.setAdapter(myAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());

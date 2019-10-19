@@ -290,14 +290,12 @@ public class HomeFragment extends Fragment  {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String mood = input.getText().toString();
+                        MoodsDB moodsDB = new MoodsDB(getActivity());
                         if (mood != null) {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm");
                             String currentDateandTime = sdf.format(new Date());
-                            MoodsDB moodsDB = new MoodsDB(getActivity());
                             moodsDB.open();
                             moodsDB.createEntry("fucked", mood, currentDateandTime);
-                            moodslist = new ArrayList<Mood>();
-                            moodslist.add(new Mood("fucked",mood,currentDateandTime));
                             moodsDB.close();
 
                             Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();

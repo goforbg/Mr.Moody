@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MoodsDB {
 
     public static final String KEY_ROWID = "_id";
@@ -20,9 +23,14 @@ public class MoodsDB {
     public static final String DATABASE_TABLE = "MoodsTable";
     private int DATABASE_VERSION = 1;
 
+    String smood, sreason, stime;
+
     private DBHelper ourhelper;
     private final Context ourcontext;
     private SQLiteDatabase ourDatabase;
+
+    Mood mood;
+    ArrayList<Mood> list;
 
     public MoodsDB (Context context) {
         ourcontext = context;
@@ -78,48 +86,35 @@ public class MoodsDB {
         cv.put (KEY_MOOD, smood);
         cv.put (KEY_REASON, sreason);
         cv.put (KEY_TIME, stime);
-        new Mood(smood, sreason, stime);
+        mood = new Mood (smood, sreason, stime);
+        list = new ArrayList<Mood>();
+        list.add(mood);
         return ourDatabase.insert (DATABASE_TABLE, null, cv);
     }
 
-    public String getDBMood()
+    public ArrayList<Mood> getList()
     {
         String [] columns = new String [] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
         Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,null,null);
         int iMood = c.getColumnIndex(KEY_MOOD);
-        String result = "";
-        for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-          result = c.getString(iMood);
-        }
-        c.close();
-        return result;
-    }
-
-    public String getDBReason()
-    {
-        String [] columns = new String [] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
-        Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,null,null);
         int iReason = c.getColumnIndex(KEY_REASON);
-        String result = "";
+        int iTime = c.getColumnIndex(KEY_TIME);
+        list = new ArrayList<Mood>();
         for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-            result = c.getString(iReason);
+           smood = c.getString(iMood);
+           sreason = c.getString(iReason);
+           stime = c.getString(iTime);
+            mood = new Mood (smood, sreason, stime);
+            list.add(mood);
         }
         c.close();
-        return result;
+
+
+
+
+        return list;
     }
 
-    public String getDBTime()
-    {
-        String [] columns = new String [] {KEY_ROWID, KEY_MOOD, KEY_REASON, KEY_TIME};
-        Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,null,null);
-        int iTime = c.getColumnIndex(KEY_TIME);
-        String result = "";
-        for (c.moveToFirst() ; !c.isAfterLast(); c.moveToNext()) {
-            result = c.getString(iTime);
-        }
-        c.close();
-        return result;
-    }
 
     public long deleteEntry (String rowId) {
         return ourDatabase.delete (DATABASE_TABLE, KEY_ROWID + "=?", new String[] {rowId});
