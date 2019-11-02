@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "307007864886",
+    "firebase_url": "https://mrmoody-38e43.firebaseio.com",
+    "project_id": "mrmoody-38e43",
+    "storage_bucket": "mrmoody-38e43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307007864886:android:f2666ee49c7b1fe77d5897",
+        "android_client_info": {
+          "package_name": "com.androar.mr_moody"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307007864886-1k9t12lj1ci26bsa4pl5fr838stait1p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androar.mr_moody",
+            "certificate_hash": "b765ad1a037f0544456b6e0f3bd37da069f826e1"
+          }
+        },
+        {
+          "client_id": "307007864886-v6r2j156vu3fvm472jpajhh9549b1dpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu0taty0oItpprEdnfbLdeNf2Bx-Z1cWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307007864886-v6r2j156vu3fvm472jpajhh9549b1dpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
