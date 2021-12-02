@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
 
@@ -18,6 +19,7 @@ public class MoodAdapter extends RecyclerView.Adapter <MoodAdapter.ViewHolder> {
 
     public MoodAdapter(Context context, ArrayList<Mood> list)
     {
+        Collections.reverse(list);
         moods=list;
         notifyDataSetChanged();
     }
